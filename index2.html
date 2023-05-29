@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="user-scalable=no, width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="kkkk.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <img src="img/oim-logo2.png" alt="oim-logo" />
+    </header>
+    <div class="form-container">
+      <h2 class="form-title">Formulario de Historia Clínica</h2>
+
+      <form id="myForm" action="/submit-form" method="POST">
+        <h1><u>Informacion Personal</u></h1>
+        <div class="columnas">
+          <div class="columna">
+            <div class="form-group">
+              <label for="nombre">Nombre Completo:</label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                placeholder="Ingrese su nombre:"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="edad">Edad:</label>
+              <input
+                type="number"
+                id="edad"
+                name="edad"
+                class="no-spin"
+                placeholder="Ingrese su edad:"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="documento"
+                >Nro de Documento: (sin guiones ni puntos)</label
+              >
+              <input
+                type="number"
+                id="documento"
+                name="documento"
+                class="no-spin"
+                placeholder="Ej: 34567890"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Ingrese su correo electronico:"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="nacionalidad">Nacionalidad:</label>
+              <input
+                type="text"
+                id="nacionalidad"
+                name="nacionalidad"
+                placeholder="Ingrese su nacionalidad:"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="sexo">Sexo:</label>
+              <select id="select-obra-social" name="opcion" required>
+                <option value="">Seleccionar</option>
+                <option value="opcion1">Masculino</option>
+                <option value="opcion2">Femenino</option>
+                <option value="opcion3">Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="domicilio">Domicilio:</label>
+              <input
+                type="text"
+                id="domicilio"
+                name="domicilio"
+                placeholder="Ingrese su calle y numero:"
+                required />
+            </div>
+          </div>
+          <div class="columna">
+            <div class="form-group">
+              <label for="localidad">Localidad:</label>
+              <input
+                type="text"
+                id="localidad"
+                name="localidad"
+                placeholder="Ingrese su localidad:"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="codigo_postal">Codigo Postal:</label>
+              <input
+                type="number"
+                id="codigo_postal"
+                name="codigo_postal"
+                class="no-spin"
+                placeholder="Ej: 1608"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="obra_social">Obra Social:</label>
+              <select id="select-obra-social" name="opcion" required>
+                <option value="">Seleccionar</option>
+                <option value="opcion1">Medife</option>
+                <option value="opcion2">Galeno</option>
+                <option value="opcion3">OSDE</option>
+                <option value="opcion4">Medicus</option>
+                <option value="opcion5">Sancor Salud</option>
+                <option value="opcion6">Swiss Medical</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="plan">Plan:</label>
+              <input type="text" id="plan" name="plan" required />
+            </div>
+            <div class="form-group">
+              <label for="num-afiliado">Afiliado Número:</label>
+              <input
+                type="number"
+                id="num-afiliado"
+                name="num-afiliado"
+                class="no-spin"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="telefono">Telefono:</label>
+              <input
+                type="number"
+                id="telefono"
+                name="telefono"
+                class="no-spin"
+                placeholder="Numero de telefono:"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="celular">Celular:</label>
+              <input
+                type="number"
+                id="celular"
+                name="celular"
+                class="no-spin"
+                placeholder="Numero de celular:"
+                required />
+            </div>
+          </div>
+        </div>
+        <div class="menor-edad">
+          <div class="menor-grupo">
+            <label for=""
+              >Si es menor de edad, indique nombre del responsable:</label
+            >
+            <input type="text" placeholder="Ingrese su nombre completo:" />
+          </div>
+          <div class="menor-grupo">
+            <label for="parentezco">Parentezco del responsable:</label>
+            <select id="select-parentezco" name="opcion">
+              <option value="">Seleccionar</option>
+              <option value="opcion1">Padre</option>
+              <option value="opcion2">Madre</option>
+              <option value="opcion3">Familiar</option>
+              <option value="opcion4">Tutor Legal</option>
+              <option value="opcion5">Otro</option>
+            </select>
+          </div>
+        </div>
+        <h1>
+          <u> Historial medico </u>
+        </h1>
+        <div class="table">
+          <div class="table-row">
+            <div class="table-header"></div>
+            <div class="table-header">SI</div>
+            <div class="table-header">NO</div>
+            <div class="table-header"></div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Padece alguna enfermedad?</label>
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question1-si"
+                name="question1"
+                value="si" />
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question1-no"
+                name="question1"
+                value="no" />
+            </div>
+            <div class="table-cell cual-column" id="question1-cual">
+              <label for="question1-input" class="hidden-label">¿Cual?</label>
+              <input
+                type="text"
+                id="question1-input"
+                name="question1-input"
+                class="hidden-input" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Está bajo tratamiento médico?</label>
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question2-si"
+                name="question2"
+                value="si" />
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question2-no"
+                name="question2"
+                value="no" />
+            </div>
+            <div class="table-cell"></div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Está tomando algún medicamento?</label>
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question3-si"
+                name="question3"
+                value="si" />
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question3-no"
+                name="question3"
+                value="no" />
+            </div>
+            <div class="table-cell" id="question3-cual">
+              <label for="question3-input" class="hidden-label">¿Cual?</label>
+              <input
+                type="text"
+                id="question3-input"
+                name="question3-input"
+                class="hidden-input" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Le hace daño algún medicamento?</label>
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question4-si"
+                name="question4"
+                value="si" />
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question4-no"
+                name="question4"
+                value="no" />
+            </div>
+            <div class="table-cell" id="question4-cual">
+              <label for="question4-input" class="hidden-label">¿Cual?</label>
+              <input
+                type="text"
+                id="question4-input"
+                name="question4-input"
+                class="hidden-input" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Está embarazada?</label>
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question5-si"
+                name="question5"
+                value="si" />
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question5-no"
+                name="question5"
+                value="no" />
+            </div>
+            <div class="table-cell" id="question5-cual">
+              <label for="question5-input" class="hidden-label"
+                >¿Cuantas semanas?</label
+              >
+              <input
+                type="text"
+                id="question5-input"
+                name="question5-input"
+                class="hidden-input" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Consume alcohol regularmente?</label>
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question6-si"
+                name="question6"
+                value="si" />
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question6-no"
+                name="question6"
+                value="no" />
+            </div>
+            <div class="table-cell"></div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Usted fuma?</label>
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question7-si"
+                name="question7"
+                value="si" />
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question7-no"
+                name="question7"
+                value="no" />
+            </div>
+            <div class="table-cell" id="question7-cual">
+              <label for="question7-input" class="hidden-label">¿Cuanto?</label>
+              <input
+                type="text"
+                id="question7-input"
+                name="question7-input"
+                class="hidden-input" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Fue operado alguna vez?</label>
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question8-si"
+                name="question8"
+                value="si" />
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question8-no"
+                name="question8"
+                value="no" />
+            </div>
+            <div class="table-cell"></div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label
+                >¿Es alérgico a alguna droga, anestesia, y/o
+                antibioticós?</label
+              >
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question9-si"
+                name="question9"
+                value="si" />
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question9-no"
+                name="question9"
+                value="no" />
+            </div>
+            <div class="table-cell" id="question9-cual">
+              <label for="question9-input" class="hidden-label">¿Cual?</label>
+              <input
+                type="text"
+                id="question9-input"
+                name="question9-input"
+                class="hidden-input" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Realiza actividad física regularmente?</label>
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question10-si"
+                name="question10"
+                value="si" />
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question10-no"
+                name="question10"
+                value="no" />
+            </div>
+            <div class="table-cell"></div>
+          </div>
+        </div>
+        <h1>
+          <u> Antecedentes Odontologicos </u>
+        </h1>
+        <div class="table">
+          <div class="table-row">
+            <div class="table-header"></div>
+            <div class="table-header">SI</div>
+            <div class="table-header">NO</div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label
+                >¿Ha sido sometido a tratamientos odontológicos previos?</label
+              >
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question1" name="question1" value="si" />
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question1" name="question1" value="no" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Usa o ha usado algún tipo de aparatología?</label>
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question2" name="question2" value="si" />
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question2" name="question2" value="no" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Ha recibido instrucciones en salud oral?</label>
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question3" name="question3" value="si" />
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question3" name="question3" value="no" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label
+                >¿Usa el hilo dental, enjuague bucal u otros elementos de
+                higiene oral?</label
+              >
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question4" name="question4" value="si" />
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question4" name="question4" value="no" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Se ha realizado alguna extracción o cirugía Bucal?</label>
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question5" name="question5" value="si" />
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question5" name="question5" value="no" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label
+                >En caso afirmativo de la respuesta anterior, ¿Ha presentado
+                alguna complicación? Parestesia, Mala Cicatrización o sangrado
+                abundante?</label
+              >
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question6" name="question6" value="si" />
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question6" name="question6" value="no" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Sufre de Queilofagia (Morderse los labios)?</label>
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question7" name="question7" value="si" />
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question7" name="question7" value="no" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Sufre de Onicofagia (Morderse las uñas?)</label>
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question8" name="question8" value="si" />
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question8" name="question8" value="no" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Sufre de Bruxismo (Apretar los Dientes)</label>
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question9" name="question9" value="si" />
+            </div>
+            <div class="table-cell">
+              <input type="radio" id="question9" name="question9" value="no" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label>¿Se chupa el dedo?</label>
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question10"
+                name="question10"
+                value="si" />
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question10"
+                name="question10"
+                value="no" />
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-cell">
+              <label
+                >¿Ha tenido una experiencia negativa en una visita previa al
+                Odontólogo? o ¿Tiene Fobia?</label
+              >
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question11"
+                name="question11"
+                value="si" />
+            </div>
+            <div class="table-cell">
+              <input
+                type="radio"
+                id="question11"
+                name="question11"
+                value="no" />
+            </div>
+          </div>
+        </div>
+        <h2>¿Ha padecido alguna de estas enfermedades?</h2>
+        <div class="preguntas2">
+          <div class="columna-pregunta2">
+            <div class="form-group3">
+              <input type="checkbox" id="opcion1" name="opcion1" />
+              <label for="opcion1">Problemas hemorrágicos</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion2" name="opcion2" />
+              <label for="opcion2">Alteraciones cardiovasculares</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion3" name="opcion3" />
+              <label for="opcion3">Enfermedades respiratorias</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion4" name="opcion4" />
+              <label for="opcion4">Trastornos gastrointestinales</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion5" name="opcion5" />
+              <label for="opcion5">Afecciones renales</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion6" name="opcion6" />
+              <label for="opcion6">Alteraciones psíquicas</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion7" name="opcion7" />
+              <label for="opcion7">Fiebre reumática</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion8" name="opcion8" />
+              <label for="opcion8">Diabetes</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion9" name="opcion9" />
+              <label for="opcion9">Hepatitis</label>
+            </div>
+          </div>
+          <div class="columna-pregunta2">
+            <div class="form-group3">
+              <input type="checkbox" id="opcion10" name="opcion10" />
+              <label for="opcion10">Reacciones alérgicas</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion11" name="opcion11" />
+              <label for="opcion11">Problemas neurológicos</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion12" name="opcion12" />
+              <label for="opcion12">Presión arterial alta</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion13" name="opcion13" />
+              <label for="opcion13">Presión arterial baja</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion14" name="opcion14" />
+              <label for="opcion14">Anemia</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion15" name="opcion15" />
+              <label for="opcion15">Epilepsia</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion16" name="opcion16" />
+              <label for="opcion16">Convulsiones</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion17" name="opcion17" />
+              <label for="opcion17">Tuberculosis</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion18" name="opcion18" />
+              <label for="opcion18">Artritis</label>
+            </div>
+          </div>
+          <div class="columna-pregunta2">
+            <div class="form-group3">
+              <input type="checkbox" id="opcion19" name="opcion19" />
+              <label for="opcion19">Asma</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion20" name="opcion20" />
+              <label for="opcion20">Sinusitis</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion21" name="opcion21" />
+              <label for="opcion21">Tumores</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion22" name="opcion22" />
+              <label for="opcion22">Enfermedades venéreas</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion23" name="opcion23" />
+              <label for="opcion23">Sida</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion24" name="opcion24" />
+              <label for="opcion24">Adicción a las drogas</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion25" name="opcion25" />
+              <label for="opcion25">Enfermedad de Chagas</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion26" name="opcion26" />
+              <label for="opcion26">Otras:</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group-boton">
+          <button type="submit">Enviar</button>
+        </div>
+      </form>
+    </div>
+    <footer>
+      <div class="cont-footer">
+        <p>
+          Colectora Este 867 - Ing. Maschwitz - Pcia. Buenos Aires - Tel: (0348)
+          4441387 <br />
+          Email: odontologia.integral@live.com.ar
+        </p>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
