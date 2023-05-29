@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <title>Formulario en línea</title>
+  </head>
+  <body>
+    <header>
+      <img src="img/oim-logo2.png" alt="oim-logo" />
+    </header>
+    <div class="titulo">
+      <h1>Fomulario de Historia Clinica</h1>
+    </div>
+    <div class="form-container">
+      <form id="myForm" action="/submit-form" method="POST">
+        <h1><u>Informacion Personal</u></h1>
+        <div class="columnas">
+          <div class="columna">
+            <div class="form-group">
+              <label for="nombre">Nombre Completo:</label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                placeholder="Ingrese su nombre:"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="edad">Edad:</label>
+              <input
+                type="number"
+                id="edad"
+                name="edad"
+                class="no-spin"
+                placeholder="Ingrese su edad:"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="documento"
+                >Nro de Documento: (sin guiones ni puntos)</label
+              >
+              <input
+                type="number"
+                id="documento"
+                name="documento"
+                class="no-spin"
+                placeholder="Ej: 34567890"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Ingrese su correo electronico:"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="nacionalidad">Nacionalidad:</label>
+              <input
+                type="text"
+                id="nacionalidad"
+                name="nacionalidad"
+                placeholder="Ingrese su nacionalidad:"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="sexo">Sexo:</label>
+              <select id="select-obra-social" name="opcion" required>
+                <option value="">Seleccionar</option>
+                <option value="opcion1">Masculino</option>
+                <option value="opcion2">Femenino</option>
+                <option value="opcion3">Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="domicilio">Domicilio:</label>
+              <input
+                type="text"
+                id="domicilio"
+                name="domicilio"
+                placeholder="Ingrese su calle y numero:"
+                required />
+            </div>
+          </div>
+          <div class="columna">
+            <div class="form-group">
+              <label for="localidad">Localidad:</label>
+              <input
+                type="text"
+                id="localidad"
+                name="localidad"
+                placeholder="Ingrese su localidad:"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="codigo_postal">Codigo Postal:</label>
+              <input
+                type="number"
+                id="codigo_postal"
+                name="codigo_postal"
+                class="no-spin"
+                placeholder="Ej: 1608"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="obra_social">Obra Social:</label>
+              <select id="select-obra-social" name="opcion" required>
+                <option value="">Seleccionar</option>
+                <option value="opcion1">Medife</option>
+                <option value="opcion2">Galeno</option>
+                <option value="opcion3">OSDE</option>
+                <option value="opcion4">Medicus</option>
+                <option value="opcion5">Sancor Salud</option>
+                <option value="opcion6">Swiss Medical</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="plan">Plan:</label>
+              <input type="text" id="plan" name="plan" required />
+            </div>
+            <div class="form-group">
+              <label for="num-afiliado">Afiliado Número:</label>
+              <input
+                type="number"
+                id="num-afiliado"
+                name="num-afiliado"
+                class="no-spin"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="telefono">Telefono:</label>
+              <input
+                type="number"
+                id="telefono"
+                name="telefono"
+                class="no-spin"
+                placeholder="Numero de telefono:"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="celular">Celular:</label>
+              <input
+                type="number"
+                id="celular"
+                name="celular"
+                class="no-spin"
+                placeholder="Numero de celular:"
+                required />
+            </div>
+          </div>
+        </div>
+        <div class="menor-edad">
+          <label for=""
+            >Si es menor de edad, indique nombre del responsable:</label
+          >
+          <input type="text" />
+          <label for="">Parentezco del responsable:</label>
+          <label for="">Padre</label>
+          <input type="radio" name="" id="" />
+          <label for="">Madre</label>
+          <input type="radio" name="" id="" />
+          <label for="">Familiar</label>
+          <input type="radio" name="" id="" />
+          <label for="">Tutor Legal</label>
+          <input type="radio" name="" id="" />
+          <label for="">Otro</label>
+          <input type="radio" name="" id="" />
+        </div>
+        <h1>
+          <u> Historial medico </u>
+        </h1>
+        <div class="preguntas">
+          <div class="columna-pregunta">
+            <div class="form-group">
+              <label for="pregunta1">¿Padece alguna enfermedad?</label>
+            </div>
+            <div class="form-group">
+              <label for="pregunta2">¿Está bajo tratamiento médico?</label>
+            </div>
+            <div class="form-group">
+              <label for="pregunta3">¿Está tomando algún medicamento?</label>
+            </div>
+            <div class="form-group">
+              <label for="pregunta4">¿Le hace daño algún medicamento?</label>
+            </div>
+            <div class="form-group">
+              <label for="pregunta5">¿Está embarazada?</label>
+            </div>
+            <div class="form-group">
+              <label for="pregunta6">¿Esta amamantando?</label>
+            </div>
+            <div class="form-group">
+              <label for="pregunta7">¿Usted fuma?</label>
+            </div>
+            <div class="form-group">
+              <label for="pregunta8">¿Fue operado alguna vez?</label>
+            </div>
+            <div class="form-group">
+              <label for="pregunta9"
+                >¿Es alérgico a alguna droga, anestesia, y/o
+                antibioticós?</label
+              >
+            </div>
+            <div class="form-group">
+              <label for="pregunta10"
+                >¿Tardan mucho en cicatrizar sus heridas?</label
+              >
+            </div>
+            <div class="form-group">
+              <label for="pregunta11"
+                >¿Tiene hábitos de morderse las uñas?</label
+              >
+            </div>
+
+            <!-- Agrega más preguntas dentro de form-group -->
+          </div>
+          <div class="columna-pregunta">
+            <h3>Sí</h3>
+            <div class="form-group2">
+              <input
+                type="checkbox"
+                id="si-opcion1"
+                name="si-opcion1"
+                class="si-opcion+"
+                onchange="mostrarCampoAdicional()" />
+            </div>
+            <div class="form-group2">
+              <input
+                type="checkbox"
+                id="si-opcion2"
+                name="si-opcion2"
+                class="si-opcion+"
+                onchange="mostrarCampoAdicional()" />
+            </div>
+            <div class="form-group2">
+              <input
+                type="checkbox"
+                id="si-opcion3"
+                name="si-opcion3"
+                class="si-opcion+"
+                onchange="mostrarCampoAdicional()" />
+            </div>
+            <div class="form-group2">
+              <input
+                type="checkbox"
+                id="si-opcion4"
+                name="si-opcion4"
+                class="si-opcion+"
+                onchange="mostrarCampoAdicional()" />
+            </div>
+            <div class="form-group2">
+              <input
+                type="checkbox"
+                id="si-opcion5"
+                name="si-opcion5"
+                class="si-opcion+"
+                onchange="mostrarCampoAdicional()" />
+            </div>
+            <div class="form-group2">
+              <input
+                type="checkbox"
+                id="si-opcion6"
+                name="si-opcion6"
+                class="si-opcion+"
+                onchange="mostrarCampoAdicional()" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="si-opcion7" name="si-opcion7" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="si-opcion8" name="si-opcion8" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="si-opcion9" name="si-opcion9" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="si-opcion10" name="si-opcion10" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="si-opcion11" name="si-opcion10" />
+            </div>
+          </div>
+
+          <div class="columna-pregunta">
+            <h3>No</h3>
+            <div class="form-group2">
+              <input type="checkbox" id="opcion1" name="opcion1" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="opcion2" name="opcion2" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="opcion3" name="opcion3" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="opcion4" name="opcion4" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="opcion5" name="opcion5" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="opcion6" name="opcion6" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="opcion7" name="opcion7" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="opcion8" name="opcion8" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="opcion9" name="opcion9" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="opcion10" name="opcion10" />
+            </div>
+            <div class="form-group2">
+              <input type="checkbox" id="opcion11" name="opcion10" />
+            </div>
+          </div>
+          <div class="columna-pregunta">
+            <div class="form-group2">
+              <div class="campo-adicional" style="display: none">
+                <label for="otro-campo">Campo adicional:</label>
+                <input type="text" id="otro-campo1" />
+              </div>
+            </div>
+            <div class="campo-adicional" style="display: none">
+              <label for="otro-campo">Campo adicional:</label>
+              <input type="text" id="otro-campo2" />
+            </div>
+            <div class="campo-adicional" style="display: none">
+              <label for="otro-campo">Campo adicional:</label>
+              <input type="text" id="otro-campo3" />
+            </div>
+            <div class="campo-adicional" style="display: none">
+              <label for="otro-campo">Campo adicional:</label>
+              <input type="text" id="otro-campo4" />
+            </div>
+            <div class="campo-adicional" style="display: none">
+              <label for="otro-campo">Campo adicional:</label>
+              <input type="text" id="otro-campo5" />
+            </div>
+            <div class="campo-adicional" style="display: none">
+              <label for="otro-campo">Campo adicional:</label>
+              <input type="text" id="otro-campo6" />
+            </div>
+            <div class="campo-adicional" style="display: none">
+              <label for="otro-campo">Campo adicional:</label>
+              <input type="text" id="otro-campo7" />
+            </div>
+          </div>
+        </div>
+        <h2>¿Ha padecido alguna de estas enfermedades?</h2>
+        <div class="preguntas2">
+          <div class="columna-pregunta2">
+            <div class="form-group3">
+              <input type="checkbox" id="opcion1" name="opcion1" />
+              <label for="opcion1">Problemas hemorrágicos</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion3" name="opcion3" />
+              <label for="opcion3">Alteraciones cardiovasculares</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion1" name="opcion1" />
+              <label for="opcion1">Enfermedades respiratorias</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion3" name="opcion3" />
+              <label for="opcion3">Trastornos gastrointestinales</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion2" name="opcion2" />
+              <label for="opcion2">Afecciones renales</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion3" name="opcion3" />
+              <label for="opcion3">Alteraciones psíquicas</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion1" name="opcion1" />
+              <label for="opcion1">Fiebre reumática</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion3" name="opcion3" />
+              <label for="opcion3">Diabetes</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion1" name="opcion1" />
+              <label for="opcion1">Hepatitis</label>
+            </div>
+          </div>
+          <div class="columna-pregunta2">
+            <div class="form-group3">
+              <input type="checkbox" id="opcion2" name="opcion2" />
+              <label for="opcion2">Reacciones alérgicas </label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion1" name="opcion1" />
+              <label for="opcion1">Problemas neurológicos</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion2" name="opcion2" />
+              <label for="opcion2">Presión arterial alta</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion1" name="opcion1" />
+              <label for="opcion1">Presión arterial baja</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion1" name="opcion1" />
+              <label for="opcion1">Anemia </label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion2" name="opcion2" />
+              <label for="opcion2">Epilepsia</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion2" name="opcion2" />
+              <label for="opcion2">Convulsiones</label>
+            </div>
+
+            <div class="form-group3">
+              <input type="checkbox" id="opcion1" name="opcion1" />
+              <label for="opcion1">Tuberculosis</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion2" name="opcion2" />
+              <label for="opcion2">Artritis</label>
+            </div>
+          </div>
+          <div class="columna-pregunta2">
+            <div class="form-group3">
+              <input type="checkbox" id="opcion1" name="opcion1" />
+              <label for="opcion1">Asma</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion2" name="opcion2" />
+              <label for="opcion2">Sinusitis</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion3" name="opcion3" />
+              <label for="opcion3">Tumores</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion1" name="opcion1" />
+              <label for="opcion1">Enfermedades venéreas</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion2" name="opcion2" />
+              <label for="opcion2">Sida</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion1" name="opcion1" />
+              <label for="opcion1">Adicción a las drogas</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion3" name="opcion3" />
+              <label for="opcion3">Enfermedad de Chagas</label>
+            </div>
+            <div class="form-group3">
+              <input type="checkbox" id="opcion2" name="opcion2" />
+              <label for="opcion2">Otras:</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group-boton">
+          <button type="submit">Enviar</button>
+        </div>
+      </form>
+    </div>
+    <footer>
+      <div class="cont-footer">
+        <p>
+          Colectora Este 867 - Ing. Maschwitz - Pcia. Buenos Aires - Tel: (0348)
+          4441387 <br />
+          Email: odontologia.integral@live.com.ar
+        </p>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+<!--
+
+-Información personal:
+
+Nombre completo
+Fecha de nacimiento
+Dirección de contacto
+Número de teléfono
+Correo electrónico 
+LISTO
+
+-Antecedentes médicos:
+
+Enfermedades sistémicas (ejemplo: diabetes, hipertensión, enfermedades cardíacas)
+Alergias conocidas (especialmente a medicamentos, látex u otros materiales dentales)
+Medicamentos actuales que esté tomando
+Cirugías previas relevantes
+LISTO
+
+-Historial dental:
+
+Fecha de la última visita al dentista
+Experiencias previas con tratamientos dentales y resultados
+Historial de dolor o sensibilidad dental
+Higiene oral y rutina de cepillado
+
+-Historial periodontal:
+
+Sangrado de las encías
+Sensibilidad o dolor en las encías
+Historial de enfermedad periodontal o infecciones previas
+
+-Historial de endodoncia:
+
+Dolor de muelas
+Tratamientos de conducto radicular previos
+
+-Historial de prótesis dentales:
+
+Prótesis dentales completas o parciales
+Problemas con las prótesis existentes
+
+-Historial de ortodoncia:
+
+Uso previo de aparatos ortopédicos o retenedores
+Necesidades o inquietudes ortodónticas actuales
+
+-Hábitos de salud oral:
+
+Hábitos de consumo (tabaco, alcohol, café, etc.)
+Uso de protector bucal para deportes de contacto
+Hábitos de morderse las uñas o el uso excesivo de objetos para masticar
+
+-Quejas o preocupaciones dentales actuales:
+
+Dolor, sensibilidad o molestias en la boca
+Dientes faltantes o fracturados
+Problemas estéticos o descontento con la apariencia de los dientes
+-->
