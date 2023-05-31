@@ -63,21 +63,14 @@
             </div>
             <div class="form-group">
               <label for="nacionalidad">Nacionalidad:</label>
-              <input
-                type="text"
-                id="nacionalidad"
-                name="nacionalidad"
-                placeholder="Ingrese su nacionalidad:"
-                required />
+              <select
+                name="nacionalidad-select"
+                id="nacionalidad-select"
+                required></select>
             </div>
             <div class="form-group">
               <label for="sexo">Sexo:</label>
-              <select id="select-obra-social" name="opcion" required>
-                <option value="">Seleccionar</option>
-                <option value="opcion1">Masculino</option>
-                <option value="opcion2">Femenino</option>
-                <option value="opcion3">Otro</option>
-              </select>
+              <select id="select-sexo" name="select-sexo" required></select>
             </div>
             <div class="form-group">
               <label for="domicilio">Domicilio:</label>
@@ -91,13 +84,8 @@
           </div>
           <div class="columna">
             <div class="form-group">
-              <label for="localidad">Localidad:</label>
-              <input
-                type="text"
-                id="localidad"
-                name="localidad"
-                placeholder="Ingrese su localidad:"
-                required />
+              <label for="provincia">Provincia:</label>
+              <select name="select-provincia" id="select-provincias"></select>
             </div>
             <div class="form-group">
               <label for="codigo_postal">Codigo Postal:</label>
@@ -110,16 +98,11 @@
                 required />
             </div>
             <div class="form-group">
-              <label for="obra_social">Obra Social:</label>
-              <select id="select-obra-social" name="opcion" required>
-                <option value="">Seleccionar</option>
-                <option value="opcion1">Medife</option>
-                <option value="opcion2">Galeno</option>
-                <option value="opcion3">OSDE</option>
-                <option value="opcion4">Medicus</option>
-                <option value="opcion5">Sancor Salud</option>
-                <option value="opcion6">Swiss Medical</option>
-              </select>
+              <label for="obra-social">Obra Social:</label>
+              <select
+                id="select-obra-social"
+                name="select-obra-social"
+                required></select>
             </div>
             <div class="form-group">
               <label for="plan">Plan:</label>
@@ -132,6 +115,7 @@
                 id="num-afiliado"
                 name="num-afiliado"
                 class="no-spin"
+                placeholder="Nro. de afiliado:"
                 required />
             </div>
             <div class="form-group">
@@ -165,14 +149,7 @@
           </div>
           <div class="menor-grupo">
             <label for="parentezco">Parentezco del responsable:</label>
-            <select id="select-parentezco" name="opcion">
-              <option value="">Seleccionar</option>
-              <option value="opcion1">Padre</option>
-              <option value="opcion2">Madre</option>
-              <option value="opcion3">Familiar</option>
-              <option value="opcion4">Tutor Legal</option>
-              <option value="opcion5">Otro</option>
-            </select>
+            <select id="select-parentezco" name="select-parentezco"></select>
           </div>
         </div>
         <h1>
