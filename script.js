@@ -36,62 +36,73 @@ inputElement.addEventListener("input", function () {
   }
 });
 
-// Obtener todos los radio buttons con valor "si"
-const siRadios = document.querySelectorAll('input[type="radio"][value="si"]');
+// Obtener todos los conjuntos de preguntas de la primera tabla
+const firstTableQuestionSets = document.querySelectorAll(".table .table-row");
 
-// Iterar sobre los radio buttons
-siRadios.forEach((radio) => {
-  // Obtener el contenedor padre de la fila
-  const row = radio.closest(".table-row");
+// Iterar sobre los conjuntos de preguntas de la primera tabla
+firstTableQuestionSets.forEach((questionSet) => {
+  // Obtener los radio buttons "SI" y "NO" de la pregunta actual
+  const siRadio = questionSet.querySelector('input[type="radio"][value="si"]');
+  const noRadio = questionSet.querySelector('input[type="radio"][value="no"]');
 
-  // Obtener los elementos relevantes de la fila
-  const hiddenLabel = row.querySelector(".hidden-label");
-  const hiddenInput = row.querySelector(".hidden-input");
+  // Obtener los elementos ocultos de la pregunta actual
+  const hiddenLabel = questionSet.querySelector(".hidden-label");
+  const hiddenInput = questionSet.querySelector(".hidden-input");
 
-  // Manejar el cambio de selección en el radio button "SI"
-  radio.addEventListener("change", () => {
+  // Manejar el cambio de selección en los radio buttons
+  const handleRadioChange = () => {
     // Si se selecciona "SI", mostrar los elementos ocultos
-    if (radio.checked) {
-      hiddenLabel.style.display = "block";
-      hiddenInput.style.display = "block";
-    } else {
-      // Si no se selecciona "SI", ocultar los elementos
-      hiddenLabel.style.display = "none";
-      hiddenInput.style.display = "none";
+    if (siRadio.checked) {
+      if (hiddenLabel && hiddenInput) {
+        hiddenLabel.style.display = "block";
+        hiddenInput.style.display = "block";
+      }
+    } else if (noRadio.checked) {
+      // Si se selecciona "NO", ocultar los elementos
+      if (hiddenLabel && hiddenInput) {
+        hiddenLabel.style.display = "none";
+        hiddenInput.style.display = "none";
+      }
     }
-  });
+  };
 
-  // Obtener el radio button "NO" correspondiente
-  const noRadio = row.querySelector('input[type="radio"][value="no"]');
+  // Manejar el cambio de selección en el radio button "SI" de la pregunta actual
+  if (siRadio) {
+    siRadio.addEventListener("change", handleRadioChange);
+  }
 
-  // Manejar el cambio de selección en el radio button "NO"
-  noRadio.addEventListener("change", () => {
-    // Si se selecciona "NO", ocultar los elementos
-    if (noRadio.checked) {
-      hiddenLabel.style.display = "none";
-      hiddenInput.style.display = "none";
-    }
-  });
+  // Manejar el cambio de selección en el radio button "NO" de la pregunta actual
+  if (noRadio) {
+    noRadio.addEventListener("change", handleRadioChange);
+  }
 });
 
 // Obtener el formulario
 const form = document.getElementById("myForm");
 
+// Obtener todos los conjuntos de preguntas
+const questionSets = document.querySelectorAll(".table-row");
+
+// Obtener todos los checkboxes del formulario
+const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+
+// Bandera para controlar si se ha mostrado la alerta
+let alertShown = false;
+
 // Agregar el evento submit al formulario
 form.addEventListener("submit", (event) => {
-  // Obtener todos los conjuntos de preguntas
-  const questionSets = document.querySelectorAll(".table-row");
-
-  // Bandera para controlar si se ha mostrado la alerta
-  let alertShown = false;
+  // Verificar si al menos un checkbox está seleccionado
+  if (!isChecked(checkboxes)) {
+    // Mostrar una alerta al usuario
+    alert("Por favor, seleccione al menos una opción.");
+    // Prevenir el envío del formulario
+    event.preventDefault();
+  }
 
   // Iterar sobre los conjuntos de preguntas
   questionSets.forEach((questionSet) => {
     // Obtener los radio buttons de la pregunta actual
     const radioButtons = questionSet.querySelectorAll('input[type="radio"]');
-
-    // Obtener el input oculto de la pregunta actual
-    const hiddenInput = questionSet.querySelector(".hidden-input");
 
     // Verificar si al menos un radio button está seleccionado
     if (!isChecked(radioButtons)) {
@@ -106,9 +117,14 @@ form.addEventListener("submit", (event) => {
   });
 });
 
-// Función para verificar si al menos un radio button está seleccionado
+// Función auxiliar para verificar si al menos un checkbox está seleccionado
+function isChecked(checkboxes) {
+  return [...checkboxes].some((checkbox) => checkbox.checked);
+}
+
+// Función auxiliar para verificar si al menos un radio button está seleccionado
 function isChecked(radioButtons) {
-  return Array.from(radioButtons).some((radioButton) => radioButton.checked);
+  return [...radioButtons].some((radio) => radio.checked);
 }
 
 //Selects
