@@ -327,37 +327,14 @@ const nacionalidades = [
   "Zambia",
   "Zimbabue",
 ];
-// Array de provincias de Argentina
-const provinciasArgentina = [
-  "Buenos Aires",
-  "Ciudad Autónoma de Buenos Aires",
-  "Catamarca",
-  "Chaco",
-  "Chubut",
-  "Córdoba",
-  "Corrientes",
-  "Entre Ríos",
-  "Formosa",
-  "Jujuy",
-  "La Pampa",
-  "La Rioja",
-  "Mendoza",
-  "Misiones",
-  "Neuquén",
-  "Río Negro",
-  "Salta",
-  "San Juan",
-  "San Luis",
-  "Santa Cruz",
-  "Santa Fe",
-  "Santiago del Estero",
-  "Tierra del Fuego, Antártida e Islas del Atlántico Sur",
-  "Tucumán",
-];
 const opcionesSexo = [
   {value: "opcion1", label: "Masculino"},
   {value: "opcion2", label: "Femenino"},
   {value: "opcion3", label: "Otro"},
+];
+const opcionesParticular = [
+  {value: "opcion1", label: "Si"},
+  {value: "opcion2", label: "No"},
 ];
 const opcionesObraSocial = [
   {value: "opcion1", label: "Medife"},
@@ -374,6 +351,66 @@ const opcionesParentezco = [
   {value: "opcion4", label: "Tutor Legal"},
   {value: "opcion5", label: "Otro"},
 ];
+//Selects de Provincia y su localidad correspondiente
+const $d = document;
+const $selectProvincias = $d.getElementById("selectProvincias");
+const $selectLocalidades = $d.getElementById("selectLocalidades");
+
+function provincia() {
+  fetch("https://apis.datos.gob.ar/georef/api/provincias")
+    .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+    .then((json) => {
+      let provincias = json.provincias.map((el) => el.nombre);
+      provincias.sort(); // Ordenar alfabéticamente
+
+      let $options = `<option value="Elige una provincia">Elige una provincia:</option>`;
+      provincias.forEach((nombre) => {
+        $options += `<option value="${nombre}">${nombre}</option>`;
+      });
+
+      $selectProvincias.innerHTML = $options;
+    })
+    .catch((error) => {
+      let message = error.statusText || "Ocurrió un error";
+
+      $selectProvincias.nextElementSibling.innerHTML = `Error: ${error.status}: ${message}`;
+    });
+}
+
+$d.addEventListener("DOMContentLoaded", provincia);
+
+function localidadesPorProvincia(provincia) {
+  fetch(
+    `https://apis.datos.gob.ar/georef/api/localidades?provincia=${provincia}&campos=id,nombre&max=5000`
+  )
+    .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+    .then((json) => {
+      let localidades = json.localidades.map((el) => el.nombre);
+      localidades.sort(); // Ordenar alfabéticamente
+
+      let $options = `<option value="Elige una localidad">Elige una localidad:</option>`;
+      localidades.forEach((nombre) => {
+        $options += `<option value="${nombre}">${nombre}</option>`;
+      });
+
+      $selectLocalidades.innerHTML = $options;
+    })
+    .catch((error) => {
+      let message = error.statusText || "Ocurrió un error";
+
+      $selectLocalidades.nextElementSibling.innerHTML = `Error: ${error.status}: ${message}`;
+    });
+}
+
+$selectProvincias.addEventListener("change", (e) => {
+  const provinciaSeleccionada = e.target.value;
+  if (provinciaSeleccionada !== "Elige una provincia:") {
+    localidadesPorProvincia(provinciaSeleccionada);
+  } else {
+    $selectLocalidades.innerHTML =
+      '<option value="">Selecciona una provincia primero</option>';
+  }
+});
 
 // Función para generar las opciones del select
 function generarOpcionesSelect() {
@@ -394,7 +431,7 @@ function generarOpcionesSelect() {
     selectNacionalidades.appendChild(optionElement);
   });
 
-  // Generar opciones para el selector de provincias de Argentina
+  /* // Generar opciones para el selector de provincias de Argentina
   const selectProvincias = document.getElementById("select-provincias");
 
   const placeholderOptionProvincias = document.createElement("option");
@@ -409,7 +446,7 @@ function generarOpcionesSelect() {
     optionElement.value = provincia;
     optionElement.textContent = provincia;
     selectProvincias.appendChild(optionElement);
-  });
+  });*/
 
   // Generar opciones para el selector de sexo
   const selectSexo = document.getElementById("select-sexo");
@@ -426,6 +463,22 @@ function generarOpcionesSelect() {
     optionElement.value = opcion.value;
     optionElement.textContent = opcion.label;
     selectSexo.appendChild(optionElement);
+  });
+  // Generar opciones para el selector de particular
+  const selectParticular = document.getElementById("select-particular");
+
+  const placeholderOptionParticular = document.createElement("option");
+  placeholderOptionParticular.value = "";
+  placeholderOptionParticular.textContent = "Seleccionar:";
+  placeholderOptionParticular.selected = true; // Marcar como opción seleccionada por defecto
+  placeholderOptionParticular.disabled = true; // Deshabilitar la opción "Seleccionar:"
+  selectParticular.appendChild(placeholderOptionParticular);
+
+  opcionesParticular.forEach((opcion) => {
+    const optionElement = document.createElement("option");
+    optionElement.value = opcion.value;
+    optionElement.textContent = opcion.label;
+    selectParticular.appendChild(optionElement);
   });
 
   // Generar opciones para el selector de obra social
@@ -463,6 +516,24 @@ function generarOpcionesSelect() {
 }
 
 generarOpcionesSelect();
+
+//Funcion para deshabilitar el select de Obra Social al seleccionar "SI" en Particular
+const selectParticular = document.getElementById("select-particular");
+const selectObraSocial = document.getElementById("select-obra-social");
+
+selectParticular.addEventListener("change", function () {
+  if (selectParticular.value === "opcion1") {
+    selectObraSocial.disabled = true;
+  } else {
+    selectObraSocial.disabled = false;
+  }
+});
+
+// Verificar el estado inicial del select de particular al cargar la página
+if (selectParticular.value === "opcion1") {
+  selectObraSocial.disabled = true;
+}
+
 /*
 // Función para verificar si al menos un radio button está seleccionado
 function isChecked(radioButtons) {
