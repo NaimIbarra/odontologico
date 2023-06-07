@@ -29,7 +29,16 @@ h1 {
 
 .form-title {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+}
+.informative-container {
+  background-color: rgb(150, 246, 243);
+  border: 1px solid black;
+  text-align: justify;
+  padding: 0 5px;
+}
+#informative-text {
+  font-style: oblique;
 }
 .columnas {
   display: grid;
@@ -97,7 +106,8 @@ h1 {
   padding: 5px;
 }
 /*Preguntas Historia Clinica*/
-.table {
+.table,
+.table2 {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -130,12 +140,12 @@ h1 {
   border-bottom: 1px solid #ccc;
 }
 
-.table-cell:last-child {
+.table .table-cell:last-child {
   border-right: none;
+  padding-bottom: 10px;
 }
-
-.table-cell label {
-  margin-bottom: 5px;
+.table-cell input[type="radio"] {
+  transform: scale(1.2);
 }
 .table-cell input[type="text"] {
   border: 1px solid black;
@@ -149,18 +159,19 @@ h1 {
 .hidden-label,
 .hidden-input {
   display: none;
+  padding: 5px;
 }
 
 /*Pregunta de enfermedades*/
 .preguntas2 {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  width: 80%;
-  margin: auto;
+  justify-content: center;
 }
 .columna-pregunta2 {
-  flex-basis: 33.33%;
+  flex-basis: calc(90% / 3);
+  max-width: calc(100% / 3);
+  align-items: center;
 }
 .form-group3 {
   display: flex;
@@ -175,8 +186,7 @@ h1 {
 }
 
 .form-group3 label {
-  padding-left: 5px;
-  flex-grow: 1;
+  padding: 5px;
 }
 
 .checkbox-group {
@@ -190,6 +200,10 @@ h1 {
 
 .checkbox-group input[type="checkbox"] {
   margin-right: 5px;
+}
+textarea {
+  display: block;
+  resize: none;
 }
 .form-group-boton {
   display: flex;
@@ -237,11 +251,15 @@ footer .cont-footer {
     margin-right: 0;
     margin-bottom: 5px;
   }
-  .columna-pregunta2 {
-    flex-basis: 100%;
-  }
   .table-cell {
     flex-basis: 50%;
+  }
+  .preguntas2 {
+    margin: 0 20%;
+  }
+  .columna-pregunta2 {
+    flex-basis: 100%;
+    max-width: 100%;
   }
 }
 @media screen and (max-width: 600px) {

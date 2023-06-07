@@ -17,9 +17,30 @@
       <img src="img/oim-logo2.png" alt="oim-logo" />
     </header>
     <div class="form-container">
-      <h2 class="form-title">Formulario de Historia Clínica</h2>
-
-      <form id="myForm" action="/submit-form" method="POST">
+      <h1 class="form-title">Formulario de Historia Clínica</h1>
+      <div class="informative-container">
+        <p id="informative-text">
+          ¡Bienvenido/a al formulario de registro para nuestra clínica
+          odontológica! En este formulario, recopilaremos información personal y
+          médica relevante para asegurar que brindemos el mejor cuidado dental
+          posible. Tu tiempo es valioso, por lo que hemos diseñado el formulario
+          para que sea rápido y fácil de completar. Por favor, proporciónanos
+          tus datos personales, como nombre, fecha de nacimiento y dirección de
+          contacto. También te pediremos detalles sobre tus antecedentes médicos
+          y odontológicos, para tener un panorama completo de tu historial de
+          salud.
+          <br />
+          Tu seguridad y privacidad son nuestra máxima prioridad, por lo que
+          todos los datos que nos brindes serán tratados de manera confidencial
+          y de acuerdo con las regulaciones de protección de datos. <br />
+          Gracias por elegir nuestra clínica odontológica. ¡Estamos ansiosos por
+          ayudarte a mantener tu salud bucal en óptimas condiciones! Si tienes
+          alguna pregunta, no dudes en comunicarte con nuestro equipo. ¡Muchas
+          gracias por tu colaboración!
+        </p>
+      </div>
+      <form id="myForm">
+        <!--action="/submit-form" method="POST"-->
         <h1><u>Informacion Personal</u></h1>
         <div class="columnas">
           <div class="columna">
@@ -119,11 +140,11 @@
               <input type="text" id="plan" name="plan" required />
             </div>
             <div class="form-group">
-              <label for="num-afiliado">Afiliado Número:</label>
+              <label for="num_afiliado">Afiliado Número:</label>
               <input
                 type="number"
-                id="num-afiliado"
-                name="num-afiliado"
+                id="num_afiliado"
+                name="num_afiliado"
                 class="no-spin"
                 placeholder="Nro. de afiliado:"
                 required />
@@ -174,7 +195,9 @@
           </div>
           <div class="table-row">
             <div class="table-cell">
-              <label>¿Padece alguna enfermedad?</label>
+              <label for="question1" class="question-label"
+                >¿Padece alguna enfermedad?</label
+              >
             </div>
             <div class="table-cell">
               <input
@@ -201,7 +224,9 @@
           </div>
           <div class="table-row">
             <div class="table-cell">
-              <label>¿Está bajo tratamiento médico?</label>
+              <label for="question2" class="question-label"
+                >¿Está bajo tratamiento médico?</label
+              >
             </div>
             <div class="table-cell">
               <input
@@ -221,7 +246,9 @@
           </div>
           <div class="table-row">
             <div class="table-cell">
-              <label>¿Está tomando algún medicamento?</label>
+              <label for="question3" class="question-label"
+                >¿Está tomando algún medicamento?</label
+              >
             </div>
             <div class="table-cell">
               <input
@@ -248,7 +275,9 @@
           </div>
           <div class="table-row">
             <div class="table-cell">
-              <label>¿Le hace daño algún medicamento?</label>
+              <label for="question4" class="question-label"
+                >¿Le hace daño algún medicamento?</label
+              >
             </div>
             <div class="table-cell">
               <input
@@ -275,7 +304,9 @@
           </div>
           <div class="table-row">
             <div class="table-cell">
-              <label>¿Está embarazada?</label>
+              <label for="question5" class="question-label"
+                >¿Está embarazada?</label
+              >
             </div>
             <div class="table-cell">
               <input
@@ -304,7 +335,9 @@
           </div>
           <div class="table-row">
             <div class="table-cell">
-              <label>¿Consume alcohol regularmente?</label>
+              <label for="question6" class="question-label"
+                >¿Consume alcohol regularmente?</label
+              >
             </div>
             <div class="table-cell">
               <input
@@ -324,7 +357,7 @@
           </div>
           <div class="table-row">
             <div class="table-cell">
-              <label>¿Usted fuma?</label>
+              <label for="question7" class="question-label">¿Usted fuma?</label>
             </div>
             <div class="table-cell">
               <input
@@ -351,7 +384,9 @@
           </div>
           <div class="table-row">
             <div class="table-cell">
-              <label>¿Fue operado alguna vez?</label>
+              <label for="question8" class="question-label"
+                >¿Fue operado alguna vez?</label
+              >
             </div>
             <div class="table-cell">
               <input
@@ -371,7 +406,7 @@
           </div>
           <div class="table-row">
             <div class="table-cell">
-              <label
+              <label for="question9" class="question-label"
                 >¿Es alérgico a alguna droga, anestesia, y/o
                 antibioticós?</label
               >
@@ -401,7 +436,9 @@
           </div>
           <div class="table-row">
             <div class="table-cell">
-              <label>¿Realiza actividad física regularmente?</label>
+              <label for="question10" class="question-label"
+                >¿Realiza actividad física regularmente?</label
+              >
             </div>
             <div class="table-cell">
               <input
@@ -423,7 +460,7 @@
         <h1>
           <u> Antecedentes Odontologicos </u>
         </h1>
-        <div class="table">
+        <div class="table2">
           <div class="table-row">
             <div class="table-header"></div>
             <div class="table-header">SI</div>
@@ -774,6 +811,11 @@
             <div class="form-group3">
               <input type="checkbox" id="opcion26" name="opcion26" />
               <label for="opcion26">Otras:</label>
+              <textarea
+                id="opcion26-text"
+                name="opcion26-text"
+                cols="20"
+                rows="3"></textarea>
             </div>
           </div>
         </div>

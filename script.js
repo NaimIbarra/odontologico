@@ -1,40 +1,22 @@
-// Obtener el elemento de entrada
-var inputElement = document.getElementById("codigo_postal");
+function applyMaxLengthValidation(inputElement, maxLength) {
+  inputElement.maxLength = maxLength;
+  inputElement.addEventListener("input", function () {
+    var value = this.value;
+    if (value.length > maxLength) {
+      this.value = value.slice(0, maxLength);
+    }
+  });
+}
 
-// Establecer la longitud máxima permitida
-inputElement.maxLength = 4;
+// Ejemplo de uso:
+var codigoPostalElement = document.getElementById("codigo_postal");
+applyMaxLengthValidation(codigoPostalElement, 4);
 
-// Agregar un controlador de eventos para validar la entrada
-inputElement.addEventListener("input", function () {
-  var value = this.value;
-  if (value.length > 4) {
-    this.value = value.slice(0, 4);
-  }
-});
-var inputElement = document.getElementById("edad");
+var edadElement = document.getElementById("edad");
+applyMaxLengthValidation(edadElement, 2);
 
-// Establecer la longitud máxima permitida
-inputElement.maxLength = 2;
-
-// Agregar un controlador de eventos para validar la entrada
-inputElement.addEventListener("input", function () {
-  var value = this.value;
-  if (value.length > 2) {
-    this.value = value.slice(0, 2);
-  }
-});
-var inputElement = document.getElementById("documento");
-
-// Establecer la longitud máxima permitida
-inputElement.maxLength = 8;
-
-// Agregar un controlador de eventos para validar la entrada
-inputElement.addEventListener("input", function () {
-  var value = this.value;
-  if (value.length > 8) {
-    this.value = value.slice(0, 8);
-  }
-});
+var documentoElement = document.getElementById("documento");
+applyMaxLengthValidation(documentoElement, 8);
 
 // Obtener todos los conjuntos de preguntas de la primera tabla
 const firstTableQuestionSets = document.querySelectorAll(".table .table-row");
@@ -56,12 +38,15 @@ firstTableQuestionSets.forEach((questionSet) => {
       if (hiddenLabel && hiddenInput) {
         hiddenLabel.style.display = "block";
         hiddenInput.style.display = "block";
+        hiddenInput.required = true; // Hacer el campo oculto obligatorio
       }
     } else if (noRadio.checked) {
-      // Si se selecciona "NO", ocultar los elementos
+      // Si se selecciona "NO", ocultar los elementos y quitar la obligatoriedad del campo
       if (hiddenLabel && hiddenInput) {
         hiddenLabel.style.display = "none";
         hiddenInput.style.display = "none";
+        hiddenInput.required = false; // Quitar la obligatoriedad del campo oculto
+        hiddenInput.value = ""; // Limpiar el valor del campo oculto
       }
     }
   };
@@ -99,32 +84,28 @@ form.addEventListener("submit", (event) => {
     event.preventDefault();
   }
 
+  let radioChecked = false;
+
   // Iterar sobre los conjuntos de preguntas
   questionSets.forEach((questionSet) => {
     // Obtener los radio buttons de la pregunta actual
     const radioButtons = questionSet.querySelectorAll('input[type="radio"]');
 
     // Verificar si al menos un radio button está seleccionado
-    if (!isChecked(radioButtons)) {
-      // Mostrar una alerta al usuario si no se ha mostrado previamente
-      if (!alertShown) {
-        alert("Por favor, seleccione una opción.");
-        alertShown = true;
-      }
-      // Prevenir el envío del formulario
-      event.preventDefault();
+    if (isChecked(radioButtons)) {
+      radioChecked = true;
     }
   });
+
+  // Si no se seleccionó ningún radio button, mostrar la alerta y prevenir el envío del formulario
+  if (!radioChecked) {
+    alert("Por favor, seleccione una opción.");
+    event.preventDefault();
+  }
 });
 
-// Función auxiliar para verificar si al menos un checkbox está seleccionado
-function isChecked(checkboxes) {
-  return [...checkboxes].some((checkbox) => checkbox.checked);
-}
-
-// Función auxiliar para verificar si al menos un radio button está seleccionado
-function isChecked(radioButtons) {
-  return [...radioButtons].some((radio) => radio.checked);
+function isChecked(inputs) {
+  return Array.from(inputs).some((input) => input.checked);
 }
 
 //Selects
@@ -351,7 +332,7 @@ const opcionesParentezco = [
   {value: "opcion4", label: "Tutor Legal"},
   {value: "opcion5", label: "Otro"},
 ];
-//Selects de Provincia y su localidad correspondiente
+//Selects de Provincia y su localidad correspondiente a partir de una API
 const $d = document;
 const $selectProvincias = $d.getElementById("selectProvincias");
 const $selectLocalidades = $d.getElementById("selectLocalidades");
@@ -412,7 +393,7 @@ $selectProvincias.addEventListener("change", (e) => {
   }
 });
 
-// Función para generar las opciones del select
+// Función para generar las opciones de los select
 function generarOpcionesSelect() {
   // Generar opciones para el selector de nacionalidades
   const selectNacionalidades = document.getElementById("nacionalidad-select");

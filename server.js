@@ -1,141 +1,148 @@
 const express = require("express");
 const app = express();
+const PDFDocument = require("pdfkit");
+const path = require("path");
 const nodemailer = require("nodemailer");
-const puppeteer = require("puppeteer");
+const fs = require("fs");
 
-// Configuración del transporte de correo electrónico con Mailgun
 const transporter = nodemailer.createTransport({
-  service: "Mailgun",
+  service: "gmail",
   auth: {
-    user: "postmaster@sandboxfe2391384f9f456998872e8be621b898.mailgun.org", // Reemplaza con el nombre de usuario proporcionado por Mailgun
-    pass: "8e808a044a5b41c0a15690f65a1320ec-6b161b0a-fc739818", // Reemplaza con la contraseña proporcionada por Mailgun
+    user: "ibarranaim07@gmail.com",
+    pass: "minecraft07",
   },
 });
 
-// Middleware para analizar los datos codificados en la URL
-app.use(express.urlencoded({extended: true}));
-
 app.get("/", (req, res) => {
-  // Lógica para cargar el formulario
   res.sendFile(__dirname + "/index.html");
 });
+
+app.use("/img", express.static(path.join(__dirname, "img")));
 
 app.get("/style.css", (req, res) => {
   res.set("Content-Type", "text/css");
   res.sendFile(__dirname + "/style.css");
 });
 
-app.get("/preview", async (req, res) => {
+app.get("/script.js", (req, res) => {
+  res.sendFile(__dirname + "/script.js");
+});
+
+app.get("/preview", (req, res) => {
   try {
     const formData = {
-      nombre: "Nombre de ejemplo",
-      email: "ejemplo@example.com",
-      mensaje: "Este es un mensaje de ejemplo",
+      nombre: req.query.nombre || "",
+      edad: req.query.edad || "",
+      documento: req.query.documento || "",
+      email: req.query.email || "",
+      nacionalidad: req.query.nacionalidad || "",
+      sexo: req.query.sexo || "",
+      domicilio: req.query.domicilio || "",
+      provincia: req.query.provincia || "",
+      localidad: req.query.localidad || "",
+      codigo_postal: req.query.codigo_postal || "",
+      particular: req.query.particular || "",
+      ObraSocial: req.query.ObraSocial || "",
+      plan: req.query.plan || "",
+      num_afiliado: req.query.num_afiliado || "",
+      telefono: req.query.telefono || "",
+      celular: req.query.celular || "",
     };
 
-    // Iniciar una instancia de Puppeteer
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+    const pdfData = generatePDF(formData);
 
-    // Cargar la página web con el formulario
-    await page.goto("http://localhost:3000", {waitUntil: "networkidle0"});
+    const pdfBase64 = pdfData.toString("base64");
+    const pdfDataURL = "data:application/pdf;base64," + pdfBase64;
 
-    // Rellenar el formulario con los datos
-    await page.type('input[name="nombre"]', formData.nombre);
-    await page.type('input[name="email"]', formData.email);
-    await page.type('textarea[name="mensaje"]', formData.mensaje);
-
-    // Generar la vista previa del PDF
-    const pdfBuffer = await page.pdf({format: "A4"});
-
-    // Cerrar el navegador
-    await browser.close();
-
-    // Configurar los detalles del correo electrónico
-    const mailOptions = {
-      from: "ibarranaim07@gmail.com",
-      to: "ibarranaim07@gmail.com",
-      subject: "Formulario en PDF",
-      text: "Adjunto encontrarás el formulario en formato PDF.",
-      attachments: [
-        {
-          filename: "formulario.pdf",
-          content: pdfBuffer,
-        },
-      ],
-    };
-
-    // Renderizar la vista previa del PDF en el navegador
-    res.type("application/pdf");
-    res.send(pdfBuffer);
-
-    // Enviar el correo electrónico utilizando el transporte de Mailgun
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error("Error al enviar el correo electrónico:", error);
-        res.status(500).json({message: "Error al enviar el formulario"});
-      } else {
-        console.log("Correo electrónico enviado:", info.response);
-        res.status(200).json({message: "Formulario enviado con éxito"});
-      }
-    });
+    res.send(`
+      <embed src="${pdfDataURL}" type="application/pdf" width="100%" height="600px" />
+    `);
   } catch (error) {
-    console.error("Error al procesar los datos del formulario:", error);
-    res.status(500).json({message: "Error interno del servidor"});
+    console.error("Error al generar el PDF:", error);
+    res.status(500).json({message: "Error al generar el PDF"});
   }
 });
 
-app.post("/submit-form", async (req, res) => {
+app.get("/generar-pdf", (req, res) => {
   try {
-    const formData = req.body;
+    const formData = {
+      nombre: req.query.nombre || "",
+      edad: req.query.edad || "",
+      documento: req.query.documento || "",
+      email: req.query.email || "",
+      nacionalidad: req.query.nacionalidad || "",
+      sexo: req.query.sexo || "",
+    };
 
-    // Iniciar una instancia de Puppeteer
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+    const pdfData = generatePDF(formData);
 
-    // Cargar la página web con el formulario
-    await page.goto("http://localhost:3000", {waitUntil: "networkidle0"});
+    const pdfPath = __dirname + "/formulario.pdf";
+    fs.writeFileSync(pdfPath, pdfData);
 
-    // Rellenar el formulario con los datos recibidos
-    await page.type('input[name="nombre"]', formData.nombre);
-    await page.type('input[name="email"]', formData.email);
-    await page.type('textarea[name="mensaje"]', formData.mensaje);
-
-    // Generar la vista previa del PDF
-    const pdfBuffer = await page.pdf({format: "A4"});
-
-    // Cerrar el navegador
-    await browser.close();
-
-    // Configuración de los detalles del correo electrónico
     const mailOptions = {
       from: "ibarranaim07@gmail.com",
       to: "ibarranaim07@gmail.com",
-      subject: "Formulario en PDF",
-      text: "Adjunto encontrarás el formulario en formato PDF.",
+      subject: "Respuestas del formulario",
+      text: "Adjunto encontrarás las respuestas del formulario en formato PDF.",
       attachments: [
         {
+          path: pdfPath,
           filename: "formulario.pdf",
-          content: pdfBuffer,
         },
       ],
     };
 
-    // Enviar el correo electrónico utilizando el transporte de Mailgun
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.error("Error al enviar el correo electrónico:", error);
-        res.status(500).json({message: "Error al enviar el formulario"});
+        console.log(error);
+        res.status(500).send("Error al enviar el correo electrónico.");
       } else {
-        console.log("Correo electrónico enviado:", info.response);
-        res.status(200).json({message: "Formulario enviado con éxito"});
+        console.log("Correo electrónico enviado: " + info.response);
+        res.send("Correo electrónico enviado con éxito.");
       }
     });
   } catch (error) {
-    console.error("Error al procesar los datos del formulario:", error);
-    res.status(500).json({message: "Error interno del servidor"});
+    console.error("Error al generar el PDF:", error);
+    res.status(500).json({message: "Error al generar el PDF"});
   }
 });
+
+const stream = require("stream");
+
+function generatePDF(formData) {
+  const pdfDoc = new PDFDocument();
+
+  pdfDoc.text("Respuestas del formulario:", {underline: true});
+  pdfDoc.moveDown();
+
+  pdfDoc.text("Nombre Completo: " + formData.nombre);
+  pdfDoc.text("Edad: " + formData.edad);
+  pdfDoc.text("Documento: " + formData.documento);
+  pdfDoc.text("Email: " + formData.email);
+  pdfDoc.text("Nacionalidad: " + formData.nacionalidad);
+  pdfDoc.text("Sexo: " + formData.sexo);
+
+  // Crea un nuevo stream de escritura (WritableStream)
+  const chunks = [];
+  const bufferStream = new stream.Writable({
+    write(chunk, encoding, next) {
+      chunks.push(chunk);
+      next();
+    },
+  });
+
+  // Redirige la salida del documento PDF al bufferStream
+  pdfDoc.pipe(bufferStream);
+
+  // Finaliza el documento PDF y termina de escribir en el bufferStream
+  pdfDoc.end();
+
+  // Crea un Buffer a partir de los datos capturados en el bufferStream
+  const buffer = Buffer.concat(chunks);
+
+  // Devuelve el Buffer
+  return buffer;
+}
 
 const port = 3000;
 app.listen(port, () => {
